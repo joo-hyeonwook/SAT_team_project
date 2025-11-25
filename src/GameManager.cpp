@@ -6,50 +6,58 @@
 #include "../include/rpg.h"
 
 void printTutorial() {
-    std::cout << "당신은 5X5타일로 이뤄진 맵에서 적들을 물리치며 출구를 찾아야 합니다." << std::endl;
-    std::cout << "맵 상에서 플레이어가 위치한 타일은 'P', 출구가 위치한 타일은 'E'로 표시됩니다." << std::endl;
-    std::cout << "맵 곳곳에는 보이지 않는 적들이 숨어있습니다. 만약 적이 위치한 타일을 밟게 되면 전투가 시작됩니다." << std::endl;
-    std::cout << "전투 시, 당신은 적과 번갈아 행동을 수행하게 됩니다." << std::endl;
-    std::cout << "당신은 1, 2, 3 중 하나의 숫자를 입력해 각각 공격, 방어, 도망치기 중 하나의 행동을 수행할 수 있습니다." << std::endl;
-    std::cout << "적은 공격 혹은 방어를 무작위로 수행할 수 있습니다." << std::endl;
-    std::cout << "행동의 성공 여부는 6면체 주사위를 두 번 굴려 나온 눈금의 합에 의해 결정됩니다." << std::endl;
-    std::cout << "공격과 방어는 실패, 성공, 대성공의 결과가, 도망치기는 실패 혹은 성공의 결과를 가질 수 있습니다." << std::endl;
-    std::cout << "모든 행동은 실패 시 무효화되어 아무런 효과를 가지지 않습니다." << std::endl;
-    std::cout << "공격은 성공 시 10, 대성공 시 20의 피해를 적에게 줄 수 있습니다." << std::endl;
-    std::cout << "방어는 성공 시 50%, 대성공 시 100%의 받는 피해량 감소 효과가 부여됩니다." << std::endl;
-    std::cout << "도망치기는 성공 시 전투가 즉시 종료됩니다. 하지만 해당 타일에 적이 위치한다는 것은 변함없으므로 동일한 타일을 또 밟게 되면 전투가 시작됩니다. " << std::endl;
-    std::cout << "이제 게임이 시작됩니다. 행운을 빕니다!" << std::endl;
+    std::cout << "당신은 5X5타일로 이뤄진 맵에서 적들을 물리치며 출구를 찾아야 합니다." << std::endl
+    << "맵 상에서 플레이어가 위치한 타일은 'P', 출구가 위치한 타일은 'E'로 표시됩니다." << std::endl
+    << "당신은 위, 아래, 왼쪽, 오른쪽 중 한 방향을 골라 한 번에 한 칸씩 움직일 수 있습니다." << std::endl
+    << "맵 곳곳에는 보이지 않는 적들이 숨어있습니다. 만약 적이 위치한 타일을 밟게 되면 전투가 시작됩니다." << std::endl
+    << "전투 시, 당신은 적과 번갈아 행동을 수행하게 됩니다." << std::endl
+    << "당신은 1, 2, 3 중 하나의 숫자를 입력해 각각 공격, 방어, 도망치기 중 하나의 행동을 수행할 수 있습니다." << std::endl
+    << "적은 공격 혹은 방어를 무작위로 수행할 수 있습니다." << std::endl
+    << "행동의 성공 여부는 6면체 주사위를 두 번 굴려 나온 눈금의 합에 의해 결정됩니다." << std::endl
+    << "공격과 방어는 실패, 성공, 대성공의 결과가, 도망치기는 실패 혹은 성공의 결과를 가질 수 있습니다." << std::endl
+    << "모든 행동은 실패 시 무효화되어 아무런 효과를 가지지 않습니다." << std::endl
+    << "공격은 성공 시 10, 대성공 시 20의 피해를 적에게 줄 수 있습니다." << std::endl
+    << "방어는 성공 시 50%, 대성공 시 100%의 받는 피해량 감소 효과가 부여됩니다." << std::endl
+    << "도망치기는 성공 시 전투가 즉시 종료됩니다. 하지만 해당 타일에 적이 남아있으므로 동일한 타일을 또 밟게 되면 다시 전투가 시작됩니다. " << std::endl
+    << "이제 게임이 시작됩니다. 행운을 빕니다!" << std::endl;
 }
 
 void printMap(Player& refPlayer, Enemy& refEnemyA, Enemy& refEnemyB, Enemy& refEnemyC) {
     int playerLocationX = refPlayer.getLocationX();
     int playerLocationY = refPlayer.getLocationY();
-    int exitX = 4;
-    int exitY = 4;
+
     for (int i = 0; i < 5; ++i) {
         for (int j = 0; j < 5; ++j) {
             std:: cout << "[";
-            if ((i == playerLocationX)&&(j == playerLocationY)) {//player 위치
+
+            //player 위치를 P로 표시
+            if ((i == playerLocationX)&&(j == playerLocationY)) {
                 std:: cout << "P";
             }
-            if ((i == exitX)&&(j == exitY)) {//exit 위치
+
+            //출구 위치를 E로 표시
+            if ((i == EXIT_LOCATION_X)&&(j == EXIT_LOCATION_Y)) {
                 std:: cout << "E";
             }
-            std:: cout << " ";//빈공간
+
+            std:: cout << " ";
             std:: cout << "]";
         }
         std::cout << std::endl;
     }
+    std::cout << std::endl;
 }
 
 int getDice() {
+    //1~6 사이의 정수를 두 번 생성해 더한 값을 리턴
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> dist(1, 6);// 1-6 범위 정수 생성
-    return dist(gen) + dist(gen);//두 번 호출, 더해서 리턴
+    std::uniform_int_distribution<int> dist(1, 6);
+    return dist(gen) + dist(gen);
 }
 
-bool ifBattleStart(Player& refPlayer, Enemy& refEnemyA, Enemy& refEnemyB, Enemy& refEnemyC) {
+void ifBattleStart(Player& refPlayer, Enemy& refEnemyA, Enemy& refEnemyB, Enemy& refEnemyC) {
+    //Player, Enemy 객체 위치 저장
     int playerLocationX = refPlayer.getLocationX();
     int playerLocationY = refPlayer.getLocationY();
     int enemyALocationX = refEnemyA.getLocationX();
@@ -58,22 +66,36 @@ bool ifBattleStart(Player& refPlayer, Enemy& refEnemyA, Enemy& refEnemyB, Enemy&
     int enemyBLocationY = refEnemyB.getLocationY();
     int enemyCLocationX = refEnemyC.getLocationX();
     int enemyCLocationY = refEnemyC.getLocationY();
-    if((playerLocationX == enemyALocationX)&&(playerLocationX == enemyALocationX)) {
-        battle(refPlayer, refEnemyA);
-        return true;
+    char enemyToBattle = NULL;
+
+    if((playerLocationX == enemyALocationX)&&(playerLocationY == enemyALocationY)) {
+       enemyToBattle = 'A';
     }
-    if((playerLocationX == enemyBLocationX)&&(playerLocationX == enemyBLocationX)) {
-        battle(refPlayer, refEnemyB);
-        return true;
+    else if((playerLocationX == enemyBLocationX)&&(playerLocationY == enemyBLocationY)) {
+        enemyToBattle = 'B';
     }
-    if((playerLocationX == enemyCLocationX)&&(playerLocationX == enemyCLocationX)) {
-        battle(refPlayer, refEnemyC);
-        return true;
+    else if((playerLocationX == enemyCLocationX)&&(playerLocationY == enemyCLocationY)) {
+        enemyToBattle = 'C';
     }
-    else {
-        return false;
+
+    switch(enemyToBattle) {
+        case 'A': 
+          battle(refPlayer, refEnemyA);
+          break;
+
+        case 'B': 
+          battle(refPlayer, refEnemyB);
+          break;
+
+        case 'C':
+          battle(refPlayer, refEnemyC);
+          break;
+        
+        default:
+          break;
     }
 }
+
 void battle(Player& refPlayer, Enemy& refEnemy) {
     std::cout << "전투 시작!"<< std::endl;
 
@@ -86,30 +108,34 @@ void battle(Player& refPlayer, Enemy& refEnemy) {
         std::cout << std::endl << ">> 플레이어의 차례!" << std::endl;
         int playerAction = refPlayer.getPlayerAction();
 
-        if (playerAction == 0) {//잘못된 입력
+        //잘못된 입력 시 오류처리 및 버퍼 초기화 후 재입력
+        if (playerAction == 0) {
             std::cout << "잘못된 입력입니다" << std::endl;
-            std::cin.clear(); // failbit 초기화
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // 버퍼 비우기
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             bool wrongInput = true;
             while (wrongInput == true) {
                 playerAction = refPlayer.getPlayerAction();
-                if ((playerAction == 1) || (playerAction == 2) || (playerAction == 3)) {
+                if ((playerAction == 1)||(playerAction == 2)||(playerAction == 3)) {
                     break;
                 }
             }
         }
 
+        //Player, Enemy 능력치 저장
         int playerAtk = refPlayer.getAtk();
         int enemyAtk = refEnemy.getAtk();
         int playerDef = refPlayer.getDef();
         int enemyDef = refEnemy.getDef();
-        if (playerAction == 1) { // 공격
+
+        //Player 행동
+        if (playerAction == 1) {
             refPlayer.playerAttack(refEnemy, enemyDef);
         }
-        else if (playerAction == 2) { // 방어
+        else if (playerAction == 2) {
             refPlayer.playerDefend();
         }
-        else if (playerAction == 3) { // 도망
+        else if (playerAction == 3) {
             bool ifRun = refPlayer.run();
             if (ifRun == true) {
                 break;
@@ -123,14 +149,15 @@ void battle(Player& refPlayer, Enemy& refEnemy) {
             break;
         }
 
-        // 👾 적 턴
+        // 적 턴
         std::cout << std::endl << ">> 적의 차례!" << std::endl;
         int enemyAction = refEnemy.getEnemyAction();
 
-        if (enemyAction == 1) { // 공격
+        //Enemy 행동
+        if (enemyAction == 1) { 
             refEnemy.enemyAttack(refPlayer, playerDef);
         }
-        else if (enemyAction == 2) { // 방어
+        else if (enemyAction == 2) {
             refEnemy.enemyDefend();
         }
 
@@ -144,7 +171,9 @@ void battle(Player& refPlayer, Enemy& refEnemy) {
         // 턴 종료 시 상태 표시
         std::cout << std::endl << "[턴 종료] 플레이어 HP: " << refPlayer.getHp()
             << " | 적 HP: " << refEnemy.getHp() << "\n";
-        std::this_thread::sleep_for(std::chrono::seconds(2)); // 텀 약간 주기
+        std::this_thread::sleep_for(std::chrono::seconds(2));
+
+        //공격력 초기화(오류 방지)
         refPlayer.setAtk(10);
         refEnemy.setAtk(10);
         
@@ -169,11 +198,10 @@ void battle(Player& refPlayer, Enemy& refEnemy) {
     }
 
     void ifGameClear(Player &refPlayer) {
-        int exitX = 4;
-        int exitY = 4;
         int playerLocationX = refPlayer.getLocationX();
         int playerLocationY = refPlayer.getLocationY();
-        if ((playerLocationX == exitX)&&(playerLocationY == exitY)) {
+
+        if ((playerLocationX == EXIT_LOCATION_X)&&(playerLocationY == EXIT_LOCATION_Y)) {
             gameClear();
         }
     }

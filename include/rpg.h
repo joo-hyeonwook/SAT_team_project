@@ -1,5 +1,8 @@
 #pragma once  //include 시 #include "../include/rpg.h" 사용할 것(상대경로)
 
+//출구 위치
+#define EXIT_LOCATION_X 4
+#define EXIT_LOCATION_Y 4
 
 class Character {
     protected:

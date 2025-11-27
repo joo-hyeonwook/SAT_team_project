@@ -56,43 +56,30 @@ int getDice() {
     return dist(gen) + dist(gen);
 }
 
-void ifBattleStart(Player& refPlayer, Enemy& refEnemyA, Enemy& refEnemyB, Enemy& refEnemyC) {
-    //Player, Enemy 객체 위치 저장
+void gameOver() {
+    std::cout << "Game Over";
+    for (int i = 5; i > 0; --i) {
+        std::cout << i << "초 후 게임 종료" << std::endl;
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+    }
+    exit(1);
+}
+    
+void gameClear() {
+    std::cout << "Game Clear!";
+    for (int i = 5; i > 0; --i) {
+        std::cout << i << "초 후 게임 종료" << std::endl;
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+    }
+    exit(1);
+}
+
+void ifGameClear(Player &refPlayer) {
     int playerLocationX = refPlayer.getLocationX();
     int playerLocationY = refPlayer.getLocationY();
-    int enemyALocationX = refEnemyA.getLocationX();
-    int enemyALocationY = refEnemyA.getLocationY();
-    int enemyBLocationX = refEnemyB.getLocationX();
-    int enemyBLocationY = refEnemyB.getLocationY();
-    int enemyCLocationX = refEnemyC.getLocationX();
-    int enemyCLocationY = refEnemyC.getLocationY();
-    char enemyToBattle = NULL;
 
-    if((playerLocationX == enemyALocationX)&&(playerLocationY == enemyALocationY)) {
-       enemyToBattle = 'A';
-    }
-    else if((playerLocationX == enemyBLocationX)&&(playerLocationY == enemyBLocationY)) {
-        enemyToBattle = 'B';
-    }
-    else if((playerLocationX == enemyCLocationX)&&(playerLocationY == enemyCLocationY)) {
-        enemyToBattle = 'C';
-    }
-
-    switch(enemyToBattle) {
-        case 'A': 
-          battle(refPlayer, refEnemyA);
-          break;
-
-        case 'B': 
-          battle(refPlayer, refEnemyB);
-          break;
-
-        case 'C':
-          battle(refPlayer, refEnemyC);
-          break;
-        
-        default:
-          break;
+    if ((playerLocationX == EXIT_LOCATION_X)&&(playerLocationY == EXIT_LOCATION_Y)) {
+        gameClear();
     }
 }
 
@@ -145,7 +132,6 @@ void battle(Player& refPlayer, Enemy& refEnemy) {
         // 전투 종료 체크
         if (refEnemy.getHp() <= 0) {
             std::cout << std::endl << "적을 물리쳤다!" << std::endl;
-            gameClear();
             break;
         }
 
@@ -179,29 +165,45 @@ void battle(Player& refPlayer, Enemy& refEnemy) {
         
     }
 }
-    void gameOver() {
-        std::cout << "Game Over";
-        for (int i = 5; i > 0; --i) {
-            std::cout << i << "초 후 게임 종료" << std::endl;
-            std::this_thread::sleep_for(std::chrono::seconds(1));
-        }
-        exit(1);
+
+void ifBattleStart(Player& refPlayer, Enemy& refEnemyA, Enemy& refEnemyB, Enemy& refEnemyC) {
+    //Player, Enemy 객체 위치 저장
+    int playerLocationX = refPlayer.getLocationX();
+    int playerLocationY = refPlayer.getLocationY();
+    int enemyALocationX = refEnemyA.getLocationX();
+    int enemyALocationY = refEnemyA.getLocationY();
+    int enemyBLocationX = refEnemyB.getLocationX();
+    int enemyBLocationY = refEnemyB.getLocationY();
+    int enemyCLocationX = refEnemyC.getLocationX();
+    int enemyCLocationY = refEnemyC.getLocationY();
+    char enemyToBattle = '\0';
+
+    if((playerLocationX == enemyALocationX)&&(playerLocationY == enemyALocationY)) {
+       enemyToBattle = 'A';
     }
+    else if((playerLocationX == enemyBLocationX)&&(playerLocationY == enemyBLocationY)) {
+        enemyToBattle = 'B';
+    }
+    else if((playerLocationX == enemyCLocationX)&&(playerLocationY == enemyCLocationY)) {
+        enemyToBattle = 'C';
+    }
+
+    switch(enemyToBattle) {
+        case 'A': 
+          battle(refPlayer, refEnemyA);
+          break;
+
+        case 'B': 
+          battle(refPlayer, refEnemyB);
+          break;
+
+        case 'C':
+          battle(refPlayer, refEnemyC);
+          break;
+        
+        default:
+          break;
+    }
+}
+
     
-    void gameClear() {
-        std::cout << "Game Clear!";
-        for (int i = 5; i > 0; --i) {
-            std::cout << i << "초 후 게임 종료" << std::endl;
-            std::this_thread::sleep_for(std::chrono::seconds(1));
-        }
-        exit(1);
-    }
-
-    void ifGameClear(Player &refPlayer) {
-        int playerLocationX = refPlayer.getLocationX();
-        int playerLocationY = refPlayer.getLocationY();
-
-        if ((playerLocationX == EXIT_LOCATION_X)&&(playerLocationY == EXIT_LOCATION_Y)) {
-            gameClear();
-        }
-    }

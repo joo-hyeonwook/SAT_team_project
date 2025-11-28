@@ -41,6 +41,7 @@ class Player : public Character {
 class Enemy : public Character {
     public:
     Enemy();
+    void setLocation(int x = 0, int y = 0); //매개변수로 위치 변경
     int getEnemyAction(); //적 행동 무작위 결정 후 리턴
     void enemyAttack(Player& refPlayer, int playerDef);
     //주사위 값에 따른 피해량만큼 플레이어 체력 차감
@@ -49,6 +50,9 @@ class Enemy : public Character {
 };
 
 namespace GameManager {
+    void enemyLocationInit(Enemy& refEnemyA, Enemy& refEnemyB, Enemy& refEnemyC);
+    //각 Enemy 객체의 위치를 비교해 겹치는 경우 하나의 위치를 수정
+
     void printTutorial();//튜토리얼 출력
     void printMap(Player& refPlayer, Enemy& refEnemyA, Enemy& refEnemyB, Enemy& refEnemyC);
     //맵과 플레이어, 출구 위치(P, E) 출력 

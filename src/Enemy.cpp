@@ -10,15 +10,23 @@ Enemy::Enemy() {
     std::uniform_int_distribution<int> dist(0, 4);
     this->locationX = dist(gen);
     this->locationY = dist(gen);
+
+    //Player 초기 위치와 겹치는 경우 예외처리 
     if((this->locationX == 0)&&(this->locationY == 0)) {
         this->locationX = dist(gen);
         this->locationY = dist(gen);
     }
-    if((this->locationX == 4)&&(this->locationY == 4)) {
+
+    //출구 위치와 겹치는 경우 예외처리
+    if((this->locationX == EXIT_LOCATION_X)&&(this->locationY == EXIT_LOCATION_Y)) {
         this->locationX = dist(gen);
         this->locationY = dist(gen);
         
     }
+}
+void Enemy::setLocation(int x, int y) {
+    this->locationX = x;
+    this->locationY = y;
 }
 int Enemy::getEnemyAction() {
     std::random_device rd;

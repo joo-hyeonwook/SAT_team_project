@@ -5,7 +5,35 @@
 #include <thread>
 #include "../include/rpg.h"
 
-void printTutorial() {
+using namespace GameManager; 
+
+void GameManager::enemyLocationInit(Enemy& refEnemyA, Enemy& refEnemyB, Enemy& refEnemyC) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> dist(0, 4);
+    if ((refEnemyA.getLocationX() == refEnemyB.getLocationX())&&(refEnemyA.getLocationY() == refEnemyB.getLocationY())) {
+        refEnemyB.setLocation(dist(gen), dist(gen));
+        while((refEnemyB.getLocationX() == 0)&&(refEnemyB.getLocationY() == 0)) {
+            refEnemyB.setLocation(dist(gen), dist(gen));
+        }
+    }
+
+    if ((refEnemyA.getLocationX() == refEnemyC.getLocationX())&&(refEnemyA.getLocationY() == refEnemyC.getLocationY())) {
+         refEnemyC.setLocation(dist(gen), dist(gen));
+         while((refEnemyC.getLocationX() == 0)&&(refEnemyC.getLocationY() == 0)) {
+            refEnemyC.setLocation(dist(gen), dist(gen));
+        }
+    }
+
+    if ((refEnemyC.getLocationX() == refEnemyB.getLocationX())&&(refEnemyC.getLocationY() == refEnemyB.getLocationY())) {
+         refEnemyC.setLocation(dist(gen), dist(gen));
+         while((refEnemyC.getLocationX() == 0)&&(refEnemyC.getLocationY() == 0)) {
+            refEnemyC.setLocation(dist(gen), dist(gen));
+        }
+    }
+}
+
+void GameManager::printTutorial() {
     std::cout << "당신은 5X5타일로 이뤄진 맵에서 적들을 물리치며 출구를 찾아야 합니다." << std::endl
     << "맵 상에서 플레이어가 위치한 타일은 'P', 출구가 위치한 타일은 'E'로 표시됩니다." << std::endl
     << "당신은 위, 아래, 왼쪽, 오른쪽 중 한 방향을 골라 한 번에 한 칸씩 움직일 수 있습니다." << std::endl
@@ -22,7 +50,7 @@ void printTutorial() {
     << "이제 게임이 시작됩니다. 행운을 빕니다!" << std::endl;
 }
 
-void printMap(Player& refPlayer, Enemy& refEnemyA, Enemy& refEnemyB, Enemy& refEnemyC) {
+void GameManager::printMap(Player& refPlayer, Enemy& refEnemyA, Enemy& refEnemyB, Enemy& refEnemyC) {
     int playerLocationX = refPlayer.getLocationX();
     int playerLocationY = refPlayer.getLocationY();
 
@@ -48,7 +76,7 @@ void printMap(Player& refPlayer, Enemy& refEnemyA, Enemy& refEnemyB, Enemy& refE
     std::cout << std::endl;
 }
 
-int getDice() {
+int GameManager::getDice() {
     //1~6 사이의 정수를 두 번 생성해 더한 값을 리턴
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -56,7 +84,7 @@ int getDice() {
     return dist(gen) + dist(gen);
 }
 
-void gameOver() {
+void GameManager::gameOver() {
     std::cout << "Game Over";
     for (int i = 5; i > 0; --i) {
         std::cout << i << "초 후 게임 종료" << std::endl;
@@ -65,7 +93,7 @@ void gameOver() {
     exit(1);
 }
     
-void gameClear() {
+void GameManager::gameClear() {
     std::cout << "Game Clear!";
     for (int i = 5; i > 0; --i) {
         std::cout << i << "초 후 게임 종료" << std::endl;
@@ -74,7 +102,7 @@ void gameClear() {
     exit(1);
 }
 
-void ifGameClear(Player &refPlayer) {
+void GameManager::ifGameClear(Player &refPlayer) {
     int playerLocationX = refPlayer.getLocationX();
     int playerLocationY = refPlayer.getLocationY();
 
@@ -166,7 +194,7 @@ void battle(Player& refPlayer, Enemy& refEnemy) {
     }
 }
 
-void ifBattleStart(Player& refPlayer, Enemy& refEnemyA, Enemy& refEnemyB, Enemy& refEnemyC) {
+void GameManager::ifBattleStart(Player& refPlayer, Enemy& refEnemyA, Enemy& refEnemyB, Enemy& refEnemyC) {
     //Player, Enemy 객체 위치 저장
     int playerLocationX = refPlayer.getLocationX();
     int playerLocationY = refPlayer.getLocationY();
@@ -205,5 +233,6 @@ void ifBattleStart(Player& refPlayer, Enemy& refEnemyA, Enemy& refEnemyB, Enemy&
           break;
     }
 }
+
 
     

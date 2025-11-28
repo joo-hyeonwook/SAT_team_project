@@ -111,7 +111,11 @@ void GameManager::ifGameClear(Player &refPlayer) {
     }
 }
 
-void battle(Player& refPlayer, Enemy& refEnemy) {
+void GameManager::battle(Player& refPlayer, Enemy& refEnemy) {
+    if(refEnemy.getHp() <= 0) {
+        std::cout << "이미 물리친 적입니다!" << std::endl;
+        return;
+    }
     std::cout << "전투 시작!"<< std::endl;
 
     int turn = 1;

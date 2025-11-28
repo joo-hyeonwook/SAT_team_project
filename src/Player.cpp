@@ -3,8 +3,37 @@
 
 using namespace GameManager;
 
-int Player::move(int *location) {//배열 인덱스의 주소 반환
+Player::Player() {
+    this->locationX = 0;
+    this->locationY = 0;
+}
 
+void Player::move() {
+    char playerInput;
+    std::cout << "움직일 방향 입력";
+    std::cin >> playerInput;
+    switch(playerInput) {
+        case 'w':
+        case 'W':
+            //위로 한칸 움직임
+            break;
+        case 'a':
+        case 'A':
+            //왼쪽으로 한칸 움직임
+            break;
+        case 's':
+        case 'S':
+            //아래로 한칸 움직임
+            break;
+        case 'd':
+        case 'D':
+            //오른쪽으로 한칸 움직임
+            break;
+        default:
+            // 잘못된 입력 받은 경우 오류메시지 출력 후 오류처리, 입력 다시받기
+            break;
+    }
+//Player 이동한 좌표 출력
 }
 int Player::getPlayerAction() {
     int action;

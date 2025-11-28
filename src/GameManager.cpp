@@ -157,7 +157,9 @@ void GameManager::battle(Player& refPlayer, Enemy& refEnemy) {
         else if (playerAction == 3) {
             bool ifRun = refPlayer.run();
             if (ifRun == true) {
-                break;
+                std::cout << "도망치기에 성공했다!";
+                std::this_thread::sleep_for(std::chrono::seconds(3));
+                return;
             }
         }
 

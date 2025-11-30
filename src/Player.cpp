@@ -5,7 +5,7 @@ using namespace GameManager;
 
 Player::Player() {
     this->locationX = 0;
-    this->locationY = 0;
+    this->locationY = 4;
 }
 
 void Player::move() {

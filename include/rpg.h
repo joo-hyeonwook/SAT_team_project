@@ -2,7 +2,7 @@
 
 //출구 위치
 #define EXIT_LOCATION_X 4
-#define EXIT_LOCATION_Y 4
+#define EXIT_LOCATION_Y 0
 
 class Character {
     protected:

@@ -6,7 +6,7 @@ using namespace GameManager;
 Character::Character() {
     this->hp = 50;
     this->atk = 10;
-    this->def = 100;
+    this->def = 0;
 }
 
 void Character::setAtk(int newAtk) {

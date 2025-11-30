@@ -140,15 +140,9 @@ void GameManager::battle(Player& refPlayer, Enemy& refEnemy) {
             }
         }
 
-        //Player, Enemy 능력치 저장
-        int playerAtk = refPlayer.getAtk();
-        int enemyAtk = refEnemy.getAtk();
-        int playerDef = refPlayer.getDef();
-        int enemyDef = refEnemy.getDef();
-
         //Player 행동
         if (playerAction == 1) {
-            refPlayer.playerAttack(refEnemy, enemyDef);
+            refPlayer.playerAttack(refEnemy);
         }
         else if (playerAction == 2) {
             refPlayer.playerDefend();
@@ -174,7 +168,7 @@ void GameManager::battle(Player& refPlayer, Enemy& refEnemy) {
 
         //Enemy 행동
         if (enemyAction == 1) { 
-            refEnemy.enemyAttack(refPlayer, playerDef);
+            refEnemy.enemyAttack(refPlayer);
         }
         else if (enemyAction == 2) {
             refEnemy.enemyDefend();
@@ -187,14 +181,24 @@ void GameManager::battle(Player& refPlayer, Enemy& refEnemy) {
             break;
         }
 
+        //Player, Enemy 능력치 저장
+        int playerAtk = refPlayer.getAtk();
+        int enemyAtk = refEnemy.getAtk();
+
+        //Player, Enemy 체력 재설정
+        refPlayer.setHp(enemyAtk, refPlayer.getDef());
+        refEnemy.setHp(playerAtk, refPlayer.getDef());
+
         // 턴 종료 시 상태 표시
         std::cout << std::endl << "[턴 종료] 플레이어 HP: " << refPlayer.getHp()
             << " | 적 HP: " << refEnemy.getHp() << "\n";
         std::this_thread::sleep_for(std::chrono::seconds(2));
 
         //공격력 초기화(오류 방지)
-        refPlayer.setAtk(10);
-        refEnemy.setAtk(10);
+        refPlayer.setAtk(0);
+        refEnemy.setAtk(0);
+        
+        
         
     }
 }

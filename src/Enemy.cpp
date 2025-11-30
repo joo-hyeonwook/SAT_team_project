@@ -35,20 +35,20 @@ int Enemy::getEnemyAction() {
     return dist(gen);
 }
 
-void Enemy::enemyAttack(Player& refPlayer, int playerDef) {
+void Enemy::enemyAttack(Player& refPlayer) {
     std::cout << "적이 공격했다!\n";
     int dice = getDice();
     if (dice < 5) {
         std::cout << "실패!\n";
-        refPlayer.setHp(0, playerDef);
+       this->atk = 0;
     }
     else if (dice < 9) {
         std::cout << "성공!\n";
-        refPlayer.setHp(this->atk, playerDef);
+        this->atk = 10;
     }
     else {
         std::cout << "대성공!\n";
-        refPlayer.setHp(this->atk * 2, playerDef);
+        this->atk = 20;
     }
 }
 

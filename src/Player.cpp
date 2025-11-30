@@ -63,6 +63,7 @@ void Player::move() {
     std::cout << "플레이어가 (" << this->locationX << ", " 
     << this->locationY << ")로 이동했습니다." << std::endl;
 }
+
 int Player::getPlayerAction() {
     int action;
     while (true) {
@@ -76,22 +77,24 @@ int Player::getPlayerAction() {
         }
     }
 } //플레이어 행동 선택
-void Player::playerAttack(Enemy& refEnemy, int enemyDef) {
+
+void Player::playerAttack(Enemy& refEnemy) {
     std::cout << "플레이어가 공격했다!\n";
     int dice = getDice();
     if (dice < 5) {
         std::cout << "실패!\n";
-        refEnemy.setHp(0, enemyDef);
+       this->atk = 0;
     }
     else if (dice < 9) {
         std::cout << "성공!\n";
-        refEnemy.setHp(atk, enemyDef);
+        this->atk = 10;
     }
     else {
         std::cout << "대성공!\n";
-        refEnemy.setHp(atk * 2, enemyDef);
+        this->atk = 20;
     }
 }
+
 void Player::playerDefend() {
     std::cout << "플레이어가 방어했다!\n";
     int dice = getDice();
@@ -108,6 +111,7 @@ void Player::playerDefend() {
         this->def = 100;
     }
 }
+
 bool Player::run() {
     int dice = getDice();
     if (dice <= 7) {

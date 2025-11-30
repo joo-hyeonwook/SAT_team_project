@@ -31,7 +31,7 @@ class Player : public Character {
     Player();
     void move();
     int getPlayerAction(); //플레이어 행동 선택 후 리턴
-    void playerAttack(Enemy& refEnemy, int enemyDef); 
+    void playerAttack(Enemy& refEnemy); 
     //주사위 값에 따른 피해량만큼 적 체력 차감
 
     void playerDefend();//주사위 값에 따른 방어력만큼 플레이어가 받는 피해 경감
@@ -43,7 +43,7 @@ class Enemy : public Character {
     Enemy();
     void setLocation(int x = 0, int y = 0); //매개변수로 위치 변경
     int getEnemyAction(); //적 행동 무작위 결정 후 리턴
-    void enemyAttack(Player& refPlayer, int playerDef);
+    void enemyAttack(Player& refPlayer);
     //주사위 값에 따른 피해량만큼 플레이어 체력 차감
     
     void enemyDefend();//주사위 값에 따른 방어력만큼 플레이어가 받는 피해 경감

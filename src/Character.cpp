@@ -18,11 +18,17 @@ void Character::setDef(int newDef) {
 }
 
 void Character::setHp(int atk, int def) {
-    if (def < 0) def = 0;
-    if (def > 100) def = 100;
+    //방어력이 0 이하 혹은 100 이상일 때의 오류처리
+    if (def < 0) {
+        def = 0;
+    }
+    if (def > 100) {
+        def = 100;
+    }
 
-    double reduction = def / 100.0;          // 방어율 계산
-    double damage = atk * (1.0 - reduction); // 실제 입는 피해
+    //방어율과 실제 입는 피해 계산 후 체력 차감
+    double reduction = def / 100.0;       
+    double damage = atk * (1.0 - reduction);
     this->hp -= static_cast<int>(damage);
 
     //체력이 0 이하일 때의 오류처리

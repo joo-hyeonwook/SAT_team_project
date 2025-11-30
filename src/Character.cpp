@@ -36,11 +36,7 @@ void Character::setHp(int atk, int def) {
         this->hp = 0;
     }
 
-    //변화된 스텟 출력
-    std::cout << "[DEBUG] 공격력: " << atk
-        << " | 방어율: " << def
-        << "% | 실제 피해: " << static_cast<int>(damage)
-        << " | 남은 HP: " << this->hp << std::endl;
+    
 }
 
 

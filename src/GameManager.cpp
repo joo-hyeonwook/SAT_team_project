@@ -59,16 +59,15 @@ void GameManager::printMap(Player& refPlayer, Enemy& refEnemyA, Enemy& refEnemyB
             std:: cout << "[";
 
             //player 위치를 P로 표시
-            if ((i == playerLocationX)&&(j == playerLocationY)) {
+            if ((j == playerLocationX)&&(i == playerLocationY)) {
                 std:: cout << "P";
-            }
-
-            //출구 위치를 E로 표시
-            if ((i == EXIT_LOCATION_X)&&(j == EXIT_LOCATION_Y)) {
+            } //출구 위치를 E로 표시
+            else if ((j == EXIT_LOCATION_X)&&(i == EXIT_LOCATION_Y)) {
                 std:: cout << "E";
             }
-
-            std:: cout << " ";
+            else {
+                std::cout << " ";
+            }
             std:: cout << "]";
         }
         std::cout << std::endl;

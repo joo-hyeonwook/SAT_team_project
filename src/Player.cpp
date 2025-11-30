@@ -10,7 +10,7 @@ Player::Player() {
 
 void Player::move() {
     char playerInput;
-    std::cout << "움직일 방향 입력";
+    std::cout << "움직일 방향 입력 (w/a/s/d): ";
     std::cin >> playerInput;
     switch(playerInput) {
         case 'w':

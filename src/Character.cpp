@@ -25,8 +25,12 @@ void Character::setHp(int atk, int def) {
     double damage = atk * (1.0 - reduction); // 실제 입는 피해
     this->hp -= static_cast<int>(damage);
 
-    if (this->hp < 0) this->hp = 0;
+    //체력이 0 이하일 때의 오류처리
+    if (this->hp < 0) {
+        this->hp = 0;
+    }
 
+    //변화된 스텟 출력
     std::cout << "[DEBUG] 공격력: " << atk
         << " | 방어율: " << def
         << "% | 실제 피해: " << static_cast<int>(damage)

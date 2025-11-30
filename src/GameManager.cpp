@@ -94,7 +94,7 @@ void GameManager::gameOver() {
 }
     
 void GameManager::gameClear() {
-    std::cout << "Game Clear!";
+    std::cout << "Game Clear!" << std::endl;
     for (int i = 5; i > 0; --i) {
         std::cout << i << "초 후 게임 종료" << std::endl;
         std::this_thread::sleep_for(std::chrono::seconds(1));

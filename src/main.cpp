@@ -19,7 +19,7 @@ int main() {
         while(1) {
             player.move();
             ifGameClear(player);
-            //ifBattleStart(player, enemy[0], enemy[1], enemy[2]);
+            ifBattleStart(player, enemy[0], enemy[1], enemy[2]);
             printMap(player, enemy[0], enemy[1], enemy[2]);
         }
     }

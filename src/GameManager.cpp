@@ -156,12 +156,6 @@ void GameManager::battle(Player& refPlayer, Enemy& refEnemy) {
             }
         }
 
-        // 전투 종료 체크
-        if (refEnemy.getHp() <= 0) {
-            std::cout << std::endl << "적을 물리쳤다!" << std::endl;
-            break;
-        }
-
         // 적 턴
         std::cout << std::endl << ">> 적의 차례!" << std::endl;
         int enemyAction = refEnemy.getEnemyAction();
@@ -185,9 +179,17 @@ void GameManager::battle(Player& refPlayer, Enemy& refEnemy) {
         int playerAtk = refPlayer.getAtk();
         int enemyAtk = refEnemy.getAtk();
 
-        //Player, Enemy 체력 재설정
-        refPlayer.setHp(enemyAtk, refPlayer.getDef());
+        //Enemy 체력 재설정
         refEnemy.setHp(playerAtk, refPlayer.getDef());
+
+        // 전투 종료 체크
+        if (refEnemy.getHp() <= 0) {
+            std::cout << std::endl << "적을 물리쳤다!" << std::endl;
+            break;
+        }
+
+        //Player 체력 재설정
+        refPlayer.setHp(enemyAtk, refPlayer.getDef());
 
         // 턴 종료 시 상태 표시
         std::cout << std::endl << "[턴 종료] 플레이어 HP: " << refPlayer.getHp()

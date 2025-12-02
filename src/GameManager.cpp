@@ -168,26 +168,22 @@ void GameManager::battle(Player& refPlayer, Enemy& refEnemy) {
             refEnemy.enemyDefend();
         }
 
-        //Player, Enemy 능력치 저장
-        int playerAtk = refPlayer.getAtk();
-        int enemyAtk = refEnemy.getAtk();
-
         //Enemy 체력 재설정
-        refEnemy.setHp(playerAtk, refPlayer.getDef());
+        refEnemy.setHp(refPlayer.getAtk(), refEnemy.getDef());
+
+        //Player 체력 재설정
+        refPlayer.setHp(refEnemy.getAtk(), refPlayer.getDef());
+
+        // 턴 종료 시 상태 표시
+        std::cout << std::endl << "[턴 종료] 플레이어 HP: " << refPlayer.getHp()
+            << " | 적 HP: " << refEnemy.getHp() << "\n";
+        std::this_thread::sleep_for(std::chrono::seconds(2));
 
         // 전투 종료 체크
         if (refEnemy.getHp() <= 0) {
             std::cout << std::endl << "적을 물리쳤다!" << std::endl;
             break;
         }
-
-        //Player 체력 재설정
-        refPlayer.setHp(enemyAtk, refPlayer.getDef());
-
-        // 턴 종료 시 상태 표시
-        std::cout << std::endl << "[턴 종료] 플레이어 HP: " << refPlayer.getHp()
-            << " | 적 HP: " << refEnemy.getHp() << "\n";
-        std::this_thread::sleep_for(std::chrono::seconds(2));
 
         //공격력 초기화(오류 방지)
         refPlayer.setAtk(0);

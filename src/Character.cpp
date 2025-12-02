@@ -27,7 +27,7 @@ void Character::setHp(int atk, int def) {
     }
 
     //방어율과 실제 입는 피해 계산 후 체력 차감
-    double reduction = def / 100.0;       
+    double reduction = (double)def / 100.0;       
     double damage = atk * (1.0 - reduction);
     this->hp -= static_cast<int>(damage);
 
@@ -35,8 +35,6 @@ void Character::setHp(int atk, int def) {
     if (this->hp < 0) {
         this->hp = 0;
     }
-
-    
 }
 
 

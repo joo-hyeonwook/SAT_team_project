@@ -168,13 +168,6 @@ void GameManager::battle(Player& refPlayer, Enemy& refEnemy) {
             refEnemy.enemyDefend();
         }
 
-        // 전투 종료 체크
-        if (refPlayer.getHp() <= 0) {
-            std::cout << std::endl << "플레이어가 쓰러졌다..." << std::endl;
-            gameOver();
-            break;
-        }
-
         //Player, Enemy 능력치 저장
         int playerAtk = refPlayer.getAtk();
         int enemyAtk = refEnemy.getAtk();
